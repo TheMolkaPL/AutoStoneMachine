@@ -1,0 +1,4 @@
+#Unikalny przedmiot
+material: SPONGE
+#czym mozna usunac maszyne
+breakmaterial: GOLD_PICKAXE
