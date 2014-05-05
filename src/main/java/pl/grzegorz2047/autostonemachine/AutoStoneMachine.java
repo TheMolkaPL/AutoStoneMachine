@@ -30,21 +30,23 @@ public class AutoStoneMachine extends JavaPlugin implements Listener{
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        mat = Material.getMaterial(this.getConfig().getString("material"));
-        if(mat==null){
-            System.out.println("Niepoprawny material! Wylaczam!");
+        try {
+            mat = Material.getMaterial(this.getConfig().getString("material").toUpperCase());
+        catch(IllegalArgumentException ex){
+            System.err.println("Niepoprawny material! Wylaczam!");
             this.getPluginLoader().disablePlugin(this);
             return;
         }
-        breakmaterial = Material.getMaterial(this.getConfig().getString("breakmaterial"));
-        if(breakmaterial==null){
-            System.out.println("Niepoprawny breakmaterial! Wylaczam!");
+        try {
+            breakmaterial = Material.getMaterial(this.getConfig().getString("breakmaterial").toUpperCase());
+        catch(IllegalArgumentException ex){
+            System.err.println("Niepoprawny breakmaterial! Wylaczam!");
             this.getPluginLoader().disablePlugin(this);
             return;
         }
         
-        System.out.println(this.getName()+" Dziala!"); //To change body of generated methods, choose Tools | Templates.
         this.getServer().getPluginManager().registerEvents(this, this);
+        System.out.println(this.getName()+" Dziala!"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -68,9 +70,7 @@ public class AutoStoneMachine extends JavaPlugin implements Listener{
                 for(int z =loc.getBlockZ()-radius;z<loc.getBlockZ()+radius;z++){
                     Block b = loc.getWorld().getBlockAt(x, y, z);
                     if(b.getType().equals(mat)){
-                       // Bukkit.broadcastMessage("Ma gabke!");
                         hassponge=true;
-                        
                     }
                 }
             }
